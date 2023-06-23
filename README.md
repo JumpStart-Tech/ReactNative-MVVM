@@ -49,7 +49,7 @@ export default TaskViewModel;
 - Create the TaskScreen.js file in the screens folder
 ```
 import React, { useState } from 'react';
-import { View, TextInput, Button, FlatList, Text } from 'react-native';
+import { View, TextInput, Button, FlatList, Text, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import TaskViewModel from '../viewModels/TaskViewModel';
@@ -67,13 +67,15 @@ const TaskScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
+        style={styles.input}
         placeholder="Task Title"
         value={title}
         onChangeText={setTitle}
       />
       <TextInput
+        style={styles.input}
         placeholder="Task Description"
         value={description}
         onChangeText={setDescription}
@@ -83,7 +85,7 @@ const TaskScreen = () => {
       <FlatList
         data={taskViewModel.tasks}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.taskContainer}>
             <Text>{item.title}</Text>
             <Text>{item.description}</Text>
           </View>
@@ -93,6 +95,26 @@ const TaskScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  input: {
+    width: '100%',
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+  },
+  taskContainer: {
+    marginBottom: 10,
+  },
+});
 
 export default observer(TaskScreen);
 ```
